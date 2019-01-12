@@ -1,0 +1,21 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /var/log/test/*.log
+    - /var/log/test/*_*.log
+    - /var/log/test/*-*.log
+
+
+
+setup.template.name: "filebeat-"
+setup.template.pattern: "filebeat-*"
+setup.dashboards.enabled: true
+
+setup.kibana:
+  host: "http://kibana:5601"
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  username: elastic
+  password: changeme
+  index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
